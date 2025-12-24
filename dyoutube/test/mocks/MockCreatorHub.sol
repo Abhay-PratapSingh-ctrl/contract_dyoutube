@@ -22,14 +22,7 @@ contract MockCreatorHub {
         address paymentToken,
         bool active
     ) external {
-        mockContents[id] = Content(
-            creator,
-            isFree,
-            fullPrice,
-            rentedPrice,
-            paymentToken,
-            active
-        );
+        mockContents[id] = Content(creator, isFree, fullPrice, rentedPrice, paymentToken, active);
     }
 
     function contents(uint256 contentId)
@@ -47,15 +40,6 @@ contract MockCreatorHub {
         )
     {
         Content memory c = mockContents[contentId];
-        return (
-            c.creator,
-            0,
-            "",
-            c.isFree,
-            c.fullPrice,
-            c.rentedPrice,
-            c.paymentToken,
-            c.active
-        );
+        return (c.creator, 0, "", c.isFree, c.fullPrice, c.rentedPrice, c.paymentToken, c.active);
     }
 }

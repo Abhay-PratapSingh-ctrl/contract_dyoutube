@@ -14,25 +14,14 @@ contract CreatorRegistryTest is Test {
         registry = new CreatorRegistry();
     }
 
-    
-       //                       REGISTER
-    
+    //                       REGISTER
 
     function testRegisterCreator() public {
         vm.prank(creator);
-        registry.registerCreator(
-            "Alice",
-            "Web3 artist",
-            "ipfs://metadata1"
-        );
+        registry.registerCreator("Alice", "Web3 artist", "ipfs://metadata1");
 
-        (
-            string memory name,
-            string memory bio,
-            string memory metadataURI,
-            address walletAddress,
-            bool active
-        ) = registry.creators(creator);
+        (string memory name, string memory bio, string memory metadataURI, address walletAddress, bool active) =
+            registry.creators(creator);
 
         assertEq(name, "Alice");
         assertEq(bio, "Web3 artist");
@@ -48,16 +37,13 @@ contract CreatorRegistryTest is Test {
         vm.prank(creator);
         registry.registerCreator("Alice Updated", "Bio 2", "ipfs://2");
 
-        (, string memory bio, string memory metadataURI,,) =
-            registry.creators(creator);
+        (, string memory bio, string memory metadataURI,,) = registry.creators(creator);
 
         assertEq(bio, "Bio 2");
         assertEq(metadataURI, "ipfs://2");
     }
 
-  
-          //                UPDATE METADATA
-
+    //                UPDATE METADATA
 
     function testUpdateMetadata() public {
         vm.prank(creator);
@@ -66,8 +52,7 @@ contract CreatorRegistryTest is Test {
         vm.prank(creator);
         registry.updateMetadata("ipfs://new");
 
-        (, , string memory metadataURI,,) =
-            registry.creators(creator);
+        (,, string memory metadataURI,,) = registry.creators(creator);
 
         assertEq(metadataURI, "ipfs://new");
     }
@@ -78,8 +63,7 @@ contract CreatorRegistryTest is Test {
         registry.updateMetadata("ipfs://nope");
     }
 
-        //                SET ACTIVE STATUS
-  
+    //                SET ACTIVE STATUS
 
     function testSetActiveStatus() public {
         vm.prank(creator);
@@ -88,7 +72,7 @@ contract CreatorRegistryTest is Test {
         vm.prank(creator);
         registry.setActiveStatus(false);
 
-        (, , , , bool active) = registry.creators(creator);
+        (,,,, bool active) = registry.creators(creator);
         assertFalse(active);
     }
 

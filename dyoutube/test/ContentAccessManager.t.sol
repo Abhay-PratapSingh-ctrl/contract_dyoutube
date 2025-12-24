@@ -31,24 +31,21 @@ contract ContentAccessManagerTest is Test {
         hub.setContent(
             CONTENT_ID,
             creator,
-            false,              // isFree
+            false, // isFree
             FULL_PRICE,
             RENT_PRICE,
             address(token),
-            true                // active
+            true // active
         );
     }
 
-              //                ACCESS
-    
+    //                ACCESS
 
     function testHasNoAccessInitially() public {
         assertFalse(manager.hasAccess(user, CONTENT_ID));
     }
 
-
-                         //      RENT
-    
+    //      RENT
 
     function testRentContent() public {
         vm.prank(user);
@@ -75,15 +72,7 @@ contract ContentAccessManagerTest is Test {
     }
 
     function testRentRevertsIfInactive() public {
-        hub.setContent(
-            CONTENT_ID,
-            creator,
-            false,
-            FULL_PRICE,
-            RENT_PRICE,
-            address(token),
-            false
-        );
+        hub.setContent(CONTENT_ID, creator, false, FULL_PRICE, RENT_PRICE, address(token), false);
 
         vm.prank(user);
         vm.expectRevert("Content inactive");
@@ -91,22 +80,14 @@ contract ContentAccessManagerTest is Test {
     }
 
     function testRentRevertsIfFree() public {
-        hub.setContent(
-            CONTENT_ID,
-            creator,
-            true,
-            0,
-            0,
-            address(token),
-            true
-        );
+        hub.setContent(CONTENT_ID, creator, true, 0, 0, address(token), true);
 
         vm.prank(user);
         vm.expectRevert("Content is free");
         manager.rentContent(CONTENT_ID);
     }
 
-                         //       BUY
+    //       BUY
 
     function testBuyContent() public {
         vm.prank(user);
@@ -126,15 +107,7 @@ contract ContentAccessManagerTest is Test {
     }
 
     function testBuyRevertsIfInactive() public {
-        hub.setContent(
-            CONTENT_ID,
-            creator,
-            false,
-            FULL_PRICE,
-            RENT_PRICE,
-            address(token),
-            false
-        );
+        hub.setContent(CONTENT_ID, creator, false, FULL_PRICE, RENT_PRICE, address(token), false);
 
         vm.prank(user);
         vm.expectRevert("Content inactive");
@@ -142,15 +115,7 @@ contract ContentAccessManagerTest is Test {
     }
 
     function testBuyRevertsIfFree() public {
-        hub.setContent(
-            CONTENT_ID,
-            creator,
-            true,
-            0,
-            0,
-            address(token),
-            true
-        );
+        hub.setContent(CONTENT_ID, creator, true, 0, 0, address(token), true);
 
         vm.prank(user);
         vm.expectRevert("Content is free");
