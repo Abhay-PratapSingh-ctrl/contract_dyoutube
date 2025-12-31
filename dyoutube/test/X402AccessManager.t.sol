@@ -8,7 +8,7 @@ interface ICreatorHub {
         returns (address, uint8, string memory, bool, uint256, uint256, address, bool);
 }
 
-contract X402AccessManager {
+contract X402AccessManager { 
     ICreatorHub public immutable creatorHub;
     address public immutable USDC;
     address public paymentVerifier;
